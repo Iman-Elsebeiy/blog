@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 // use App\Traits\Common;
 
 
@@ -25,7 +26,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post= Post::findOrFail($id);
+        $post= Post::with('user')->findOrFail($id);
         return view("posts.details", compact("post"));
     }
 
@@ -38,31 +39,50 @@ class PostController extends Controller
     }
 
 
-
     public function create(){
-        return view('posts.add_post');
+        $users = User::all();
+        return view('posts.add_post', compact('users'));
     }
 
-
-    public function store(){
+    function store()
+    {
 
         request()->validate([
             "title" => ["required", "min:3", "max:255"],
-            "description" => ["required", "min:20", "max:255"],
-            "image" => ["required", "image", "mimes:jpeg,png,jpg"]
+            "description" => ["required", "min:1", "max:10000"],
+        ]);
+        $post = new post();
 
-         ]);
-
-        $post = new Post();
-        $post->title = request()->title;
-        $post->description = request()->description;
+        $post->title = request('title');
+        $post->description = request('description');
         $post->image = request('image');
+        $post->user_id = request('user_id');
         $post->save();
-        return redirect()->route('posts.index');
+        return to_route('posts.show',$post->id);
+    }
 
-
+    function edit($id){
+        $post = Post::findOrFail($id);
+        $users = User::select('id', 'name')->get();
+        // $users = User::all();
+        return view('posts.edit_post',compact('post','users'));
 
     }
+    function update($id){
+        $post = Post::findOrFail($id);
+          request()->validate([
+            "title" => ["required", "min:3", "max:255"],
+            "description" => ["required", "min:1", "max:10000"],
+         ]);
+            $post->title = request('title');
+            $post->description = request('description');
+            $post->image = request('image');
+            $post->user_id = request('user_id');
+            $post->update();
+            return to_route('posts.show',$post->id);
+    }
+
+
 }
 
 

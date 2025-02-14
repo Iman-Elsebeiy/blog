@@ -36,15 +36,23 @@
       border-radius: 5px;
     }
     .btn-secondary {
-    background-color: rgb(55, 55, 247);
+    background-color: rgb(46, 48, 141);
+    color: white;
+}
+
+  .btn-primary {
+    background-color:rgb(25, 90, 133);
     color: white;
 }
 
 .btn-danger {
-    background-color:rgb(240, 51, 51);
+    background-color:rgb(199, 17, 17);
     color: white;
 }
-
+.btn-dark:hover{
+    background-color:rgb(189, 3, 3);
+    color: white;
+}
   </style>
 </head>
 <body>

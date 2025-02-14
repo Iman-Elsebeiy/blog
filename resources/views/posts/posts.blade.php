@@ -5,7 +5,10 @@
 @section('section1')
 <h1 style="text-align: center; margin-top: 30px;">All Posts</h1>
 
+
 <div class="container">
+    <a href="{{route("posts.create")}}" class="btn btn-dark justify-content-center">➕Add new post</a>
+
     <div class="row">
         @foreach ($posts as $post)
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
@@ -16,9 +19,13 @@
                     <img src="{{ asset('imgs/'. $post->image) }}" alt="Post Image" class="img-fluid">
                 </div>
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('posts.show', $post['id']) }}" class="btn btn-secondary mr-2">Show</a>
-                    <a href="{{route('posts.destroy', $post['id'])}}" class="btn btn-danger btn-custom mr-2">Delete</a>
-
+                    <a href="{{ route('posts.show', $post['id']) }}" class="btn btn-primary">Show</a>
+                    <a href="{{ route('posts.edit', $post['id']) }}" class="btn "><img src="imgs/edit.png" style="max-width: 40px" alt=""></a>
+                     <form action="{{route('posts.destroy', $post['id'])}}" method="POST">
+                     @csrf
+                     @method('delete')
+                    <button type="submit" class="btn"><img src="imgs/delete.png" style="max-width: 35px" alt=""></button>
+                    </form>
                 </div>
             </div>
         </div>
