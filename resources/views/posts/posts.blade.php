@@ -19,7 +19,8 @@
                     <img src="{{ asset('imgs/'. $post->image) }}" alt="Post Image" class="img-fluid">
                 </div>
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('posts.show', $post['id']) }}" class="btn btn-primary">Show</a>
+                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-primary">Show</a>
+                    {{-- <a href="{{ route('posts.show', $post['id']) }}" class="btn btn-primary">Show</a> --}}
                     <a href="{{ route('posts.edit', $post['id']) }}" class="btn "><img src="imgs/edit.png" style="max-width: 40px" alt=""></a>
                      <form action="{{route('posts.destroy', $post['id'])}}" method="POST">
                      @csrf

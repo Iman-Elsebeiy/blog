@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Str;
+
+
 // use App\Traits\Common;
 
 
@@ -24,9 +27,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($slug)
     {
-        $post= Post::with('user')->findOrFail($id);
+        $post = Post::where('slug', $slug)->firstOrFail(); // Find post by slug
         return view("posts.details", compact("post"));
     }
 
@@ -50,6 +53,8 @@ class PostController extends Controller
         request()->validate([
             "title" => ["required", "min:3", "max:255"],
             "description" => ["required", "min:1", "max:10000"],
+            'user_id' => 'required|exists:users,id',
+
         ]);
         $post = new post();
 
@@ -57,8 +62,9 @@ class PostController extends Controller
         $post->description = request('description');
         $post->image = request('image');
         $post->user_id = request('user_id');
+        $post->slug = Str::slug(request('title'));
         $post->save();
-        return to_route('posts.show',$post->id);
+        return to_route('posts.show',$post->slug);
     }
 
     function edit($id){

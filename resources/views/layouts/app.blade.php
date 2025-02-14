@@ -46,11 +46,11 @@
 }
 
 .btn-danger {
-    background-color:rgb(199, 17, 17);
+    background-color:rgb(12, 54, 145);
     color: white;
 }
 .btn-dark:hover{
-    background-color:rgb(189, 3, 3);
+    background-color:rgb(120, 178, 212);
     color: white;
 }
   </style>
