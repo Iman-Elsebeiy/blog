@@ -36,6 +36,33 @@ class PostController extends Controller
         return redirect()->route('posts.index');
 
     }
+
+
+
+    public function create(){
+        return view('posts.add_post');
+    }
+
+
+    public function store(){
+
+        request()->validate([
+            "title" => ["required", "min:3", "max:255"],
+            "description" => ["required", "min:20", "max:255"],
+            "image" => ["required", "image", "mimes:jpeg,png,jpg"]
+
+         ]);
+       
+        $post = new Post();
+        $post->title = request()->title;
+        $post->description = request()->description;
+        $post->image = request('image');
+        $post->save();
+        return redirect()->route('posts.index');
+
+
+
+    }
 }
 
 

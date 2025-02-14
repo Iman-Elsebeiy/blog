@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $post['title'] }}</h5>
                     <p class="card-text">{{ $post['description'] }}</p>
-                    <img src="{{ asset('imgs/' . $post->image) }}" alt="Post Image" class="img-fluid">
+                    <img src="{{ asset('/imgs/' . $post->image) }}" alt="Post Image" class="img-fluid">
                 </div>
             </div>
         </div>
