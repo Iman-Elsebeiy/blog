@@ -16,7 +16,7 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts = Post::paginate(9);
+        $posts = Post::paginate(6);
         return view('posts.posts',compact('posts'));
     }
 
@@ -52,7 +52,7 @@ class PostController extends Controller
             "image" => ["required", "image", "mimes:jpeg,png,jpg"]
 
          ]);
-       
+
         $post = new Post();
         $post->title = request()->title;
         $post->description = request()->description;
